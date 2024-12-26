@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Board from "./Components/Board/Board";
 import "./App.css";
+import { DragDropContext } from "react-beautiful-dnd";
 
 function App() {
   const [apiData, setApiData] = useState(null);
@@ -108,6 +109,102 @@ function App() {
     }
   };
 
+  const addCardToBoard = (boardId) => {
+
+    const newCard = {
+
+      id: `new-${Date.now()}`,
+
+      title: "New Card",
+
+      description: "This is a new card",
+
+    };
+
+
+
+    const updatedBoards = boards.map((board) => {
+
+      if (board.id === boardId) {
+
+        return { ...board, cards: [...board.cards, newCard] };
+
+      }
+
+      return board;
+
+    });
+
+
+
+    setBoards(updatedBoards);
+
+  };
+
+
+
+  const onDragEnd = (result) => {
+
+    const { source, destination } = result;
+
+
+
+    if (!destination) return;
+
+
+
+    if (
+
+      source.droppableId === destination.droppableId &&
+
+      source.index === destination.index
+
+    ) {
+
+      return;
+
+    }
+
+
+
+    const sourceBoardIndex = boards.findIndex(
+
+      (board) => board.id === source.droppableId
+
+    );
+
+    const destinationBoardIndex = boards.findIndex(
+
+      (board) => board.id === destination.droppableId
+
+    );
+
+
+
+    const sourceBoard = boards[sourceBoardIndex];
+
+    const destinationBoard = boards[destinationBoardIndex];
+
+
+
+    const [movedCard] = sourceBoard.cards.splice(source.index, 1);
+
+    destinationBoard.cards.splice(destination.index, 0, movedCard);
+
+
+
+    const updatedBoards = [...boards];
+
+    updatedBoards[sourceBoardIndex] = sourceBoard;
+
+    updatedBoards[destinationBoardIndex] = destinationBoard;
+
+    setBoards(updatedBoards);
+
+  };
+
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -168,13 +265,115 @@ function App() {
           )}
         </div>
       </div>
-      <div className="app_boards_container">
-        <div className="app_boards">
-          {boards.map((board, index) => (
-            <Board key={index} board={board} />
-          ))}
-        </div>
-      </div>
+      <DragDropContext onDragEnd={onDragEnd}>
+
+<div className="app_boards_container">
+
+  <div className="app_boards">
+
+  {boards.map((board, index) => (
+
+<div key={index} className="board-container">
+
+<Board
+
+board={board}
+
+addCardToBoard={addCardToBoard} // Pass the function as a prop
+
+updateBoardCards={(boardId, updatedCards) => {
+
+const updatedBoards = boards.map((b) =>
+
+  b.id === boardId ? { ...b, cards: updatedCards } : b
+
+);
+
+setBoards(updatedBoards);
+
+}}
+
+removeBoard={() => {
+
+setBoards(boards.filter((b) => b.id !== board.id));
+
+}}
+
+removeCard={(boardId, cardId) => {
+
+const updatedBoards = boards.map((b) => {
+
+  if (b.id === boardId) {
+
+    return {
+
+      ...b,
+
+      cards: b.cards.filter((card) => card.id !== cardId),
+
+    };
+
+  }
+
+  return b;
+
+});
+
+setBoards(updatedBoards);
+
+}}
+
+updateCard={(boardId, updatedCard) => {
+
+const updatedBoards = boards.map((b) => {
+
+  if (b.id === boardId) {
+
+    return {
+
+      ...b,
+
+      cards: b.cards.map((card) =>
+
+        card.id === updatedCard.id ? updatedCard : card
+
+      ),
+
+    };
+
+  }
+
+  return b;
+
+});
+
+setBoards(updatedBoards);
+
+}}
+
+/>
+
+<button
+
+className="add-card-button"
+
+onClick={() => addCardToBoard(board.id)}
+
+>
+
++
+
+</button>
+
+</div>
+
+))}
+
+  </div>
+
+</div>
+
+</DragDropContext>
     </div>
   );
 }
