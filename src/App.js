@@ -6,10 +6,10 @@ import { DragDropContext } from "react-beautiful-dnd";
 
 function App() {
   const [apiData, setApiData] = useState(null);
-  const [loading, setLoading] = useState(true); // Define the loading state
+  const [loading, setLoading] = useState(true);
   const [boards, setBoards] = useState([]);
-  const [dropdownOpen, setDropdownOpen] = useState(false); // Define dropdown state
-  const [setSelectedOption] = useState(""); // For dropdown selection
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [, setSelectedOption] = useState("");
 
   useEffect(() => {
     // Fetching data from the Quicksell API
