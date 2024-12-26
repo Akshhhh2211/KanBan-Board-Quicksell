@@ -1,17 +1,22 @@
 .card {
-  padding: 8px;
+  background-color: #fff;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  background-color: #fff;
-  border-radius: 10px;
-  width: 280px;
-  height: 130px;
+  gap: 10px;
+  padding: 10px;
+  min-height: 140px;
+  max-width: 400px;
 }
 
 .card_top {
   display: flex;
   align-items: flex-start;
+}
+
+.card_header {
+  display: flex;
+  gap: 5px;
 }
 
 .card_top_labels {
@@ -25,9 +30,8 @@
 
 .card_top_left{
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #898998;
+  flex: 1 1;
+  gap: 310px;
 }
 .card_top_labels label {
   border-radius: 40px;
@@ -45,13 +49,14 @@
   flex: 1;
   font-size: 15px;
   line-height: 20px;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .card_footer {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  display: flex;
+  gap: 9px;
+  justify-content: flex-start;
 }
 
 .card_footer_item {
@@ -67,11 +72,6 @@
   align-items: center;
 }
 
-.card_footer_icon {
-  height: 13px;
-  width: 13px;
-}
-
 .card_footer_user {
   border-radius: 50%;
   height: 28px;
@@ -82,13 +82,30 @@
   justify-content: center;
 }
 
+.Card_iconFeature{
+  color: #b7bac5;
+}
 
 .card_bottom_right{
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-left: 10px;
-  padding: 3px;
-  display: flex;
+  border: .5px solid #dfdfdf;
+  border-radius: 6px;
+  padding: 6px;
   align-items: center;
-  gap: 5px;
+  color: grey;
+  display: flex;
+  font-size: 18px;
+  gap: 7px;
+}
+
+svg.add-card-icon {
+  color: #6a6a6a;
+  cursor: pointer;
+}
+
+.card_bottom_left {
+  border: .5px solid #dfdfdf;
+  border-radius: 6px;
+  padding: 6px;
+  background-color: #fff;
+  color: gray;
 }

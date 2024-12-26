@@ -58,7 +58,7 @@ function Board(props) {
             <div className="board_header">
               <p className="board_header_title">
                 {props.board?.title}
-                <span>{props.board?.cards?.length || 0}</span>
+                <span style={{marginleft: "8px"}}>{props.board?.cards?.length || 0}</span>
               </p>
               <div className="board_header_actions">
                 <Plus

@@ -9,12 +9,6 @@ function Editable(props) {
   const [inputText, setInputText] = useState(props.defaultValue || "");
 
   const submission = (e) => {
-    e.preventDefault();
-    if (inputText && props.onSubmit) {
-      setInputText("");
-      props.onSubmit(inputText);
-    }
-    setIsEditable(false);
   };
 
   return (

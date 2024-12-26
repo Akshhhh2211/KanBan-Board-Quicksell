@@ -63,15 +63,6 @@ function Card(props) {
             <span><User size={16} />{Name}</span>
         </div>
         </div>
-        <div className="card_top">
-          <div className="card_top_labels">
-            {labels?.map((item, index) => (
-              <label key={index} style={{ backgroundColor: item.color }}>
-                {item.text}
-              </label>
-            ))}
-          </div>
-        </div>
         <div className="card_title">{title}</div>
         <div className="card_footer">
           {date && (
@@ -87,13 +78,18 @@ function Card(props) {
             </p>
           )}
           <div className="card_bottom_left">
-            <span className="alert"></span>
-            <AlertTriangle size={20} />
+            {/* <span className="alert"></span>
+            <AlertTriangle size={20} /> */}
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
+            </path></svg>
           </div>
-          <div className="card_bottom_right">
-            <span>
-              <Circle size={12} />Feature Request
-            </span>
+          <div class="card_bottom_right"><svg stroke="currentColor" fill="currentColor" stroke-width="0" 
+          viewBox="0 0 16 16" class="Card_iconFeature" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8" cy="8" r="8"></circle></svg>
+            <div>
+              Feature Request
+            </div>
           </div>
         </div>
       </div>

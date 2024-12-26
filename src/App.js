@@ -170,7 +170,7 @@ function App() {
             style={{ background: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='21' y1='4' x2='14' y2='4'%3E%3C/line%3E%3Cline x1='10' y1='4' x2='3' y2='4'%3E%3C/line%3E%3Cline x1='21' y1='12' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='8' y1='12' x2='3' y2='12'%3E%3C/line%3E%3Cline x1='21' y1='20' x2='16' y2='20'%3E%3C/line%3E%3Cline x1='12' y1='20' x2='3' y2='20'%3E%3C/line%3E%3Cline x1='14' y1='1' x2='14' y2='7'%3E%3C/line%3E%3Cline x1='8' y1='9' x2='8' y2='15'%3E%3C/line%3E%3Cline x1='16' y1='17' x2='16' y2='23'%3E%3C/line%3E%3C/svg%3E\") no-repeat left 8px center",}}
 
           >
-            <span style={{ marginRight: "8px", marginLeft: "20px"  }}>Display</span>
+            <span style={{ marginRight: "8px", marginLeft: "45px", marginTop: "1px", fontWeight: "700",}}>Display</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -204,8 +204,8 @@ function App() {
                   className="dropdown-select"
                   onChange={handleOptionChange}
                 >
-                  <option value="ascending">Title (Ascending)</option>
-                  <option value="descending">Priority (Descending)</option>
+                  <option value="ascending">Title</option>
+                  <option value="descending">Priority</option>
                 </select>
               </div>
             </div>
@@ -215,17 +215,55 @@ function App() {
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="app_boards_container">
           <div className="app_boards">
-            {boards.map((board, index) => (
-              <div key={index} className="board-container">
-                <Board board={board} />
-                <button
-                  className="add-card-button"
-                  onClick={() => addCardToBoard(board.id)}
-                >
-                  +
-                </button>
-              </div>
-            ))}
+          {boards.map((board, index) => (
+  <div key={index} className="board-container">
+    <Board
+      board={board}
+      addCardToBoard={addCardToBoard} // Pass the function as a prop
+      updateBoardCards={(boardId, updatedCards) => {
+        const updatedBoards = boards.map((b) =>
+          b.id === boardId ? { ...b, cards: updatedCards } : b
+        );
+        setBoards(updatedBoards);
+      }}
+      removeBoard={() => {
+        setBoards(boards.filter((b) => b.id !== board.id));
+      }}
+      removeCard={(boardId, cardId) => {
+        const updatedBoards = boards.map((b) => {
+          if (b.id === boardId) {
+            return {
+              ...b,
+              cards: b.cards.filter((card) => card.id !== cardId),
+            };
+          }
+          return b;
+        });
+        setBoards(updatedBoards);
+      }}
+      updateCard={(boardId, updatedCard) => {
+        const updatedBoards = boards.map((b) => {
+          if (b.id === boardId) {
+            return {
+              ...b,
+              cards: b.cards.map((card) =>
+                card.id === updatedCard.id ? updatedCard : card
+              ),
+            };
+          }
+          return b;
+        });
+        setBoards(updatedBoards);
+      }}
+    />
+    <button
+      className="add-card-button"
+      onClick={() => addCardToBoard(board.id)}
+    >
+      +
+    </button>
+  </div>
+))}
           </div>
         </div>
       </DragDropContext>
