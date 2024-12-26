@@ -3,8 +3,6 @@ import {
   CheckSquare,
   Clock,
   User,
-  AlertTriangle,
-  Circle,
 } from "react-feather";
 
 import "./Card.css";
@@ -13,7 +11,7 @@ import CardInfo from "./CardInfo/CardInfo";
 function Card(props) {
   const [showModal, setShowModal] = useState(false);
 
-  const { id, title, date, tasks, labels, Name} = props.card;
+  const { id, title, date, tasks, Name} = props.card;
 
   const formatDate = (value) => {
     if (!value) return "";
