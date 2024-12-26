@@ -9,7 +9,7 @@ function App() {
   const [loading, setLoading] = useState(true); // Define the loading state
   const [boards, setBoards] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false); // Define dropdown state
-  const [selectedOption, setSelectedOption] = useState(""); // For dropdown selection
+  const [setSelectedOption] = useState(""); // For dropdown selection
 
   useEffect(() => {
     // Fetching data from the Quicksell API
