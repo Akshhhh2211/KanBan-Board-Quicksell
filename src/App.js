@@ -9,7 +9,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [boards, setBoards] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [setSelectedOption] = useState("");
 
   useEffect(() => {
     axios
