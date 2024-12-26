@@ -12,7 +12,7 @@ function App() {
   const [selectedOption, setSelectedOption] = useState(""); // For dropdown selection
 
   useEffect(() => {
-    // Fetch data from the Quicksell API
+    // Fetching data from the Quicksell API
     axios
       .get("https://api.quicksell.co/v1/internal/frontend-assignment")
       .then((response) => {
@@ -268,79 +268,45 @@ function App() {
       <DragDropContext onDragEnd={onDragEnd}>
 
 <div className="app_boards_container">
-
   <div className="app_boards">
-
   {boards.map((board, index) => (
-
 <div key={index} className="board-container">
 
-<Board
-
-board={board}
-
-addCardToBoard={addCardToBoard} // Pass the function as a prop
-
+<Board board={board}
+addCardToBoard={addCardToBoard} 
 updateBoardCards={(boardId, updatedCards) => {
-
 const updatedBoards = boards.map((b) =>
-
   b.id === boardId ? { ...b, cards: updatedCards } : b
-
 );
-
 setBoards(updatedBoards);
-
 }}
 
 removeBoard={() => {
-
 setBoards(boards.filter((b) => b.id !== board.id));
-
 }}
 
 removeCard={(boardId, cardId) => {
-
 const updatedBoards = boards.map((b) => {
-
   if (b.id === boardId) {
-
     return {
-
       ...b,
-
       cards: b.cards.filter((card) => card.id !== cardId),
-
     };
-
   }
-
   return b;
-
 });
-
 setBoards(updatedBoards);
-
 }}
 
 updateCard={(boardId, updatedCard) => {
-
 const updatedBoards = boards.map((b) => {
-
   if (b.id === boardId) {
-
     return {
-
       ...b,
-
       cards: b.cards.map((card) =>
-
         card.id === updatedCard.id ? updatedCard : card
-
       ),
-
     };
-
   }
 
   return b;
@@ -349,30 +315,14 @@ const updatedBoards = boards.map((b) => {
 
 setBoards(updatedBoards);
 
-}}
-
-/>
-
-<button
-
-className="add-card-button"
-
-onClick={() => addCardToBoard(board.id)}
-
->
-
-+
-
-</button>
+}} />
 
 </div>
 
 ))}
 
   </div>
-
 </div>
-
 </DragDropContext>
     </div>
   );
